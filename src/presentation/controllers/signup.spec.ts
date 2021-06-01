@@ -1,8 +1,6 @@
 import { SignUpController } from './signup'
-import { MissingParamError } from '../errors/missing-param-error'
-import { InvalidParamError } from '../errors/invalid-param-error'
+import { MissingParamError, InvalidParamError, ServerError } from '../errors'
 import { EmailValidator } from '../protocols/email-validator'
-import { ServerError } from '../errors/server-error'
 
 interface SutTypes {
   sut: SignUpController
@@ -60,7 +58,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email',
+        email: 'any_email@mail.com',
         passwordConfirmation: 'any_password'
       }
     }
@@ -75,7 +73,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'any_email',
+        email: 'any_email@mail.com',
         password: 'any_password'
       }
     }
@@ -91,7 +89,7 @@ describe('SignUp Controller', () => {
     const httpRequest = {
       body: {
         name: 'any_name',
-        email: 'invalid_email',
+        email: 'invalid_email@mail.com',
         password: 'any_password',
         passwordConfirmation: 'any_password'
       }
