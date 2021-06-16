@@ -7,7 +7,12 @@ export const adapterRoute = (controller: Controller) => {
       body: request.body
     }
     const httpResponse = await Promise.resolve(controller.handle(httpRequest))
-
-    response.status(httpResponse.statusCode).json(httpResponse)
+    if (httpResponse.statusCode === 200) {
+      response.status(httpResponse.statusCode).json(httpResponse)
+    } else {
+      response.status(httpResponse.statusCode).json({
+        error: httpResponse.body.message
+      })
+    }
   }
 }
